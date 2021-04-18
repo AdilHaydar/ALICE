@@ -1,0 +1,55 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    <h2>{% translate 'Duyurular' %}</h2>
+    <hr>
+{% endblock title %}
+
+
+
+
+{% block content %}
+<div class="col-12 mb-5" align="center">
+    <button class="btn btn-outline-primary" onclick="show_hide_ann(this)">{% translate 'Duyuru Yayınla' %}</button>
+    <div id="up-down-element" class="mt-3 add-announcement col-6 card card-bg" align="center" style="padding:10px;display:none">
+        <div class="card-header">
+            <h5>{% translate 'Duyuru Yayınla' %}</h5>
+        </div>
+        <form method="POST" id="duyuru_id">
+            {% csrf_token %}
+            {{form.media}}
+            {{form|crispy}}
+
+            <input type="submit" value="Yayınla">
+        </form>
+    </div>
+</div>
+{% for announcement in announcements %}
+<div class="card card-bg mb-5 mt-4">
+    <div class="card-body">
+        <h5 class="card-title">{{announcement.title}}</h5>
+        <p class="card-text">{{announcement.announcement|safe|truncatewords:50}}</p>
+    </div>
+</div>
+{% endfor %}
+
+<script>
+    function show_hide_ann(param)
+    {
+        const divElement = document.getElementById('up-down-element')
+        if (divElement.style.display == 'none'){
+            $('#up-down-element').slideDown('slow')
+            param.innerHTML = 'Gizle'
+        }
+        else{
+            $('#up-down-element').slideUp()
+            param.innerHTML = 'Duyuru Yayınla'
+        }
+    }
+
+    
+</script>
+{% endblock content %}
+    

@@ -1,0 +1,35 @@
+{% load i18n %}
+{% load static %}
+{% for report in reports %}
+    <!--<div class="card card-bg mb-5 mt-4">
+        <div class="card-header">
+            <h5 class="card-title">{{report.title}}</h5>
+            <small>Toplantı Tarihi : {{report.date}}</small>
+        </div>
+        <div class="card-body">
+           
+            <p class="card-text">{{report.description|safe|truncatewords:50}}</p>
+            <a href="{% url 'meeting-reports:detail' report.id %}" target="_blank" class="btn btn-success btn-sm">{% translate 'Görüntüle' %}</a>
+        </div>
+    </div>-->
+    <div class="ui card" style="width:100%;">
+        <div class="content">
+          <div class="header">{{report.title}}</div>
+        </div>
+        <div class="content">
+          <h4 class="ui sub header">{{report.date}}</h4>
+          <div class="ui small feed">
+            <div class="event">
+              <div class="content">
+                <div class="summary">
+                  {{report.description|safe|truncatewords:30}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="extra content" align="center">
+          <a href="{% url 'meeting-reports:detail' report.id %}" class="ui inverted blue button">Görüntüle</a>
+        </div>
+      </div>
+{% endfor %}

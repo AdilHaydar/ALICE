@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    <h3>{{meeting.title}}</h3>
+    <hr>
+{% endblock %}
+
+{% block content %}
+    
+
+    <div class="article-content mb-5">
+        <p>{{meeting.description|safe}}</p>
+        {% if meeting.file %}
+        <a href="{{meeting.file.url}}" class="big ui inverted blue button">İndir <i class="fas fa-file-download"></i></a>
+        {% endif %}
+        {% if meeting.url %}
+        <!--<iframe class="mt-5" height="800px" width="100%" src="{{meeting.url}}"></iframe>-->
+
+        <a class="ui button primary big gallerypdf" data-fancybox-type="iframe" href="{{meeting.url}}">Görüntüle</a>
+
+        <script>
+            $(document).ready(function() {
+                $(".gallerypdf").fancybox({
+                    openEffect: 'elastic',
+                    closeEffect: 'elastic',
+                    autoSize: true,
+                    type: 'iframe',
+                    iframe: {
+                        preload: false // fixes issue with iframe and IE
+                    }
+                });
+            });
+        </script>
+        {% endif %}
+        <hr style="background:lightgray;">
+        
+        
+    </div>
+{% endblock %}

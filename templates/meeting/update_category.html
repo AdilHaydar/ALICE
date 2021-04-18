@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+
+{% block sidebar %}
+<div class="container mt-5" align="center">
+    <form method="POST" id="create_form">
+        {% csrf_token %}
+        <div class="ui huge form">
+            <div class="field">
+            <label>Kategori Adı</label>
+            <input placeholder="Kategori Adı" type="text" name="category_name" value="{{category.category_name}}">
+            </div>
+            <input type="submit" class="ui green button" value="Kaydet" />
+        </div>
+
+    </form>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('#create_form').submit(function(e){
+          e.preventDefault()
+          var serializedData = $(this).serialize()
+          
+          $.ajax({
+            type:'POST',
+            url:'/meeting/update-category/{{category.id}}',
+            data: serializedData,
+            success: function(response){
+              Swal.fire("Başarılı","Kategori Güncellendi.","success")
+            },
+            error: function(response){
+              Swal.fire("Hata",`${response.responseJSON.message}`,"error")
+            }
+          })
+        })
+      })
+</script>
+{% endblock %}
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+
+    
+{% endblock %}
+
+{% block lastarticles %}
+
+{% endblock %}
