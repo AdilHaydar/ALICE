@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    <h3>Araştırma Ekibi</h3>
+    <hr>
+{% endblock %}
+
+{% block content %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="ui inverted blue button" type="submit" value="Ekle" />
+    </form>
+    
+{% endblock %}
+
+{% block lastarticles %}
+
+{% endblock %}
+
+

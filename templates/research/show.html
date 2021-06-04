@@ -1,0 +1,13 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    <h3>{{research.title}}</h3>
+    <hr>
+{% endblock %}
+
+
+{% block content %}
+    <div align="center"><img src="{{research.image.url}}" class="ui medium rounded image"></div>
+    <hr>
+    {{research.content|safe}}
+{% endblock %}

@@ -1,0 +1,141 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    <h3>Kayıt Ol</h3>
+    <hr>
+{% endblock %}
+
+
+{% block sidebar %}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <!-- {% if form.errors %}
+            <div class="alert alert-danger">
+                {{form.errors.username}}
+                {{form.errors.email}}
+                {{form.errors.confirm}}
+                {{form.errors.first_name}}
+                {{form.errors.last_name}}
+            </div>
+        {% endif %} -->
+        
+        <form method="POST" class="ui form" id="register-form">
+            {% csrf_token %}
+            <div class="field">
+                <label>Kullanıcı Adı</label>
+                <input type="text" name="username" placeholder="Kullanıcı Adı Giriniz" id="id_username"/>
+                <small id="info_username"></small>
+            </div>
+            <div class="field">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Email Adresi Giriniz"/>
+            </div>
+            <div class="field">
+                <label>Parola</label>
+                <input type="password" name="password" placeholder="Parola Giriniz"/>
+            </div>
+            <div class="field">
+                <label>Parolayı Doğrula</label>
+                <input type="password" name="confirm" placeholder="Parolayı Tekrar Girin"/>
+            </div>
+            <div class="field">
+                <label>İsim</label>
+                <input type="text" name="first_name" placeholder="Adınızı Girin"/>
+            </div>
+            <div class="field">
+                <label>Soyisim</label>
+                <input type="text" name="last_name" placeholder="Soyadınızı Girin"/>
+            </div>
+
+            <Button type="submit" class="ui green button">Kayıt Ol</Button> 
+
+        </form>
+    </div>
+    <script>
+
+        var changeValue = {
+            'username':'Kullanıcı Adı',
+            'password':'Parola',
+            'confirm':'Parolayı Doğrula',
+            'email':'E-Posta',
+            'first_name':'İsim',
+            'last_name':'Soyisim'
+        }
+        
+        $(document).ready(function() {
+            $("#id_username").keyup(function(e){
+                if ($(this).val()){ 
+                    $.ajax({
+                        type:'GET',
+                        url: `/user/check-username/${$(this).val()}`,
+                        success: (response) => {
+                            $(this)[0].style='border:2px solid green;'
+                            $('#info_username').text('Bu Kullanıcı Adı Uygun')
+                            $('#info_username')[0].style='color:green'
+                        },
+                        error: (response) => {
+                            $(this)[0].style='border:2px solid red;'
+                            $('#info_username').text('Bu Kullanıcı Adı Uygun Değil')
+                            $('#info_username')[0].style='color:red'
+                        }
+                    })
+                 }
+                 $(this)[0].style = ''
+                 $('#info_username').text('')
+                 $('#info_username')[0].style=''
+                
+            })
+        })
+        $(document).ready(function() {
+            $('#register-form').submit(function(e) {
+                e.preventDefault()
+                var serializedData = $(this).serialize()
+                var inputs = document.querySelectorAll('#register-form input')
+
+                inputs.forEach((item) => {
+                    item.style = ''
+                })
+                
+                $.ajax({
+                    type:'POST',
+                    url: '/user/register/',
+                    data: serializedData,
+                    success: (response) => {
+                        Swal.fire('Kayıt İşlemi Başarılı','Ana Sayfaya Yönlendiriliyorsunuz','success')
+                        setTimeout(() => {window.location = '/'},2000)
+                    },
+                    error: (response) => {
+                        const errorText = () => {
+                            var text = ''
+                            var keys = Object.keys(response.responseJSON.message)
+                            keys.forEach((item) => 
+                            {
+                                text += ` ${changeValue[item]} : ${response.responseJSON.message[item]}<br> `
+                                if (item === 'confirm'){
+                                    document.getElementsByName('password')[0].style='border: 2px solid red;'
+                                }
+                                document.getElementsByName(item)[0].style = 'border: 2px solid red;'
+                                
+                            })
+                            return text
+                        }
+                        Swal.fire('Hata',errorText(),'error')
+                    }
+                })
+            })
+        })
+    </script>
+{% endblock %}
+
+
+{% block lastarticles %}
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

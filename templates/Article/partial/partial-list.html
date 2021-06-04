@@ -1,0 +1,11 @@
+{% load i18n %}
+{% for article in articles %}
+    <div class="card mb-5 mt-4">
+        <div class="card-header"><h5 class="card-title">{{article.title}}</h5></div>
+        <div class="card-body">
+            
+            <p class="card-text">{{article.content|safe|truncatewords:50}}</p>
+            <a href="{% url 'article:detail' article.slug %}" target="_blank" class="btn btn-success btn-sm"><i class="far fa-eye"></i> {% translate 'Görüntüle' %} ({{article.view_count}})</a>
+        </div>
+    </div>
+{% endfor %}

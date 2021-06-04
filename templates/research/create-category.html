@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+
+
+{% block title %}
+    <h3>Araştırma Kategorisi Ekle</h3>
+    <hr>
+{% endblock %}
+
+{% block sidebar %}{% endblock %}
+
+{% block content %}
+
+<form method="POST" class="ui form" id="category-form">
+    {% csrf_token %}
+    <div class="field">
+        <label>Kategori Adı</label>
+        {{form.category_name}}
+    </div>
+
+    <input type="submit" class="ui green button" value="Kaydet" />
+</form>
+
+<script>
+    $(document).ready(() => {
+        $('#category-form').submit(() => {
+            parent.$.fancybox.close()
+        })
+    })
+    
+</script>
+
+{% endblock %}
+
+{% block lastarticles %}{% endblock %}
+{% block footer %}{% endblock %}

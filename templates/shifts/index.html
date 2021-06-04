@@ -1,0 +1,82 @@
+{% extends 'base/base.html' %}
+{% load converter %}
+
+{% block title %}
+<div class="row" style="align-items: baseline;">
+    <h3>Araştırma Ekibi</h3> {% if request.user.is_staff or request.user.is_superuser %}<a href="{% url 'shift:add' %}" class="ui primary button ml-5">Ekle</a>{% endif %}
+</div>
+    
+    <hr>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-6">
+            <h3 style="text-decoration: underline;"><b>Grup Başkanı</b></h3>
+        </div>
+        <div class="col-6">
+            <h3 style="text-decoration: underline;"><b>Fizik Sorumlusu</b></h3>
+        </div>
+    </div>
+
+    <div class="row" align="center" style="align-items: baseline;">
+        {% for shift in shifts %}
+        {% if shift.top_title == 'baskan' %}
+        <div class="col-6">
+            <div class="ui green cards" style="margin:2px;">
+                <div class="card">
+                    <div class="image" align="center">
+                        <img style="height: 200px;width:150px;" src="{{shift.photo.url}}">
+                    </div>
+                    <div class="content">
+                        <div class="header">{{shift.academic_titles|titleConverter }} {{shift.first_name}} {{shift.last_name}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% elif shift.top_title == 'sorumlu' %}
+        <div class="col-6">
+            <div class="ui green cards" style="margin:2px;">
+                <div class="card">
+                    <div class="image" align="center">
+                        <img style="height: 200px;width:150px;" src="{{shift.photo.url}}">
+                    </div>
+                    <div class="content">
+                        <div class="header">{{shift.academic_titles|titleConverter }} {{shift.first_name}} {{shift.last_name}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    
+    <div class="row" align="center">
+        <h3 style="text-decoration: underline;"><b>Ekip Üyeleri</b></h3>
+    </div>
+    <div class="row" align="center" style="align-items: baseline;">
+        {% for shift in shifts %}
+        {% if shift.top_title %}
+            
+        {% else %}
+        <div class="ui green cards" style="margin:2px;">
+            <div class="card">
+                <div class="image" align="center">
+                    <img style="height: 200px;width:150px;" src="{{shift.photo.url}}">
+                </div>
+                <div class="content">
+                    <div class="header">{{shift.academic_titles|titleConverter }} {{shift.first_name}} {{shift.last_name}}</div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block lastarticles %}
+
+{% endblock %}
+
+

@@ -1,0 +1,107 @@
+
+{% if announcements %}
+    {% for announcement in announcements %}
+        <div class="ui card" style="width: 100%;">
+            <div class="content">
+                <div class="header">{{announcement.title|upper}}</div>
+                <div class="meta">Duyuru bitiş tarihi: {{announcement.deadline_at}}</div>
+                <div class="description">
+                {{announcement.announcement|safe}}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% elif main_data %}
+    <style>
+        .main-pics{
+            width: 100px !important;
+            height: 100px !important;
+            transition: 0.2s;
+        }
+        .main-pics:hover{
+            transition: 0.2s;
+            opacity: 0.6;
+        }
+
+    </style>
+    {% if request.user.is_superuser %}
+    
+    <div class="mb-3" align="center">
+        <a class="ui button green" href="{% url 'main:add' %}">Düzenle</a>
+    </div>
+    {% endif %}
+    
+    <div class="card text-center">
+        
+        <div class="card-header">
+        Fotoğraflar
+        </div>
+        <!-- <div class="card-body">
+            <div class="ui small images">
+                <p class="imglist">
+                    {% for image in main_pics %}
+                    <a href="{{image.image.url}}" data-fancybox="images" data-width="1280" data-height="960">
+                        <img class="main-pics" src="{{image.image.url}}" />
+                    </a>
+            
+                    {% endfor %}
+                
+                </p>
+            </div>
+        </div>
+        <div class="card-footer text-muted"></div> -->
+        <div id="demo" class="carousel slide" data-ride="carousel">
+
+            <!-- Indicators -->
+            <ul class="carousel-indicators">
+                {% for _ in main_pics %}
+                {% if forloop.counter == 1%}
+              <li data-target="#demo" data-slide-to="{{forloop.counter0}}" class="active"></li>
+                {% else %}
+              <li data-target="#demo" data-slide-to="{{forloop.counter0}}"></li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+          
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+                {% for image in main_pics %}
+                {% if forloop.counter == 1 %}
+              <div class="carousel-item active">
+                <a href="{{image.image.url}}" data-fancybox="images" data-width="1280" data-height="960">
+                    <img style="max-width:1000px; width:100% !important; height: 400px !important;" class="main-pics" src="{{image.image.url}}" />
+                </a>
+              </div>
+                {% else %}
+              <div class="carousel-item">
+                <a href="{{image.image.url}}" data-fancybox="images" data-width="1280" data-height="960">
+                    <img style="max-width:1000px; width:100% !important; height: 400px !important;" class="main-pics" src="{{image.image.url}}" />
+                </a>
+              </div>
+              {% endif %}
+              {% endfor %}
+            </div>
+          
+            <!-- Left and right controls -->
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+              <span class="carousel-control-next-icon"></span>
+            </a>
+          
+          </div>
+         
+    </div>
+    {{main_data.content|safe}}
+{% else %}
+
+<div class="alert alert-danger" role="alert">
+    Bir Hata Oluştu
+</div>
+
+{% endif %}
+
+
+
+

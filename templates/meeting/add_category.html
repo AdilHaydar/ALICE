@@ -1,0 +1,99 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    <h2>{% translate 'Kategori Ekle' %}</h2>
+    <hr>
+{% endblock title %}
+
+
+{% block content %}
+
+
+<div class="row">
+<div class="col-3">
+    <form method="POST" id="create_form">
+
+        {% csrf_token %}
+        <div class="form-group">
+            <label>{% translate 'Kategori Adı' %} : </label><input type="text" placeholder="Kategori Adı" class="form-control" name="category_name" id="id_category_name">
+        </div>
+        
+        <input type="submit" name="create" class="ui inverted green button" value="{% translate 'Oluştur' %}"/>
+    
+    </form>
+</div>
+<div class="col-2"></div>
+<div class="col-7 float-right" >
+    <div style="width: 100%; height: 500px; overflow-y: scroll; margin-bottom: 10px;border:1px inset lightgray;padding: 5px;">
+        {% for category in categories %}
+        
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <div class="ui middle aligned divided list">
+                    <div class="item">
+                    <div class="right floated content">
+                            <input type="submit" name="delete" class="ui button red" value="Delete" />
+                            <input type="hidden" name="category_id" value="{{category.id}}" />
+                        
+                        <a href="{% url 'meeting-reports:update-category' category.id %}" class="ui button teal update-box">Update</a>
+                    </div>
+                    <img class="ui avatar image" src="{% static 'images/atom.png' %}">
+                    <div class="content">
+                        {{category.category_name}}
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $(".update-box").fancybox({
+            openEffect: 'elastic',
+            closeEffect: 'elastic',
+            autoSize: true,
+            type: 'iframe',
+            iframe: {
+                preload: false // fixes issue with iframe and IE
+            }
+        });
+    });
+
+    $(document).ready(function(){
+        $('#create_form').submit(function(e){
+          e.preventDefault()
+          var serializedData = $(this).serialize()
+          
+          $.ajax({
+            type:'POST',
+            url:'/meeting/add-category/',
+            data: serializedData,
+            success: function(response){
+              Swal.fire("Başarılı","Kategori Oluşturuldu","success")
+            },
+            error: function(response){
+              Swal.fire("Hata",`${response.responseJSON.message}`,"error")
+            }
+          })
+        })
+      })
+      
+</script>
+
+{% if delete_category %}
+<script>
+    Swal.fire('Category Silindi', '{{deleted_category_name}} isimli kategori silindi','info')
+</script>
+{% endif %}
+{% endblock %}
+
+{% block lastarticles %}
+
+{% endblock %}

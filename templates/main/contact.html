@@ -1,0 +1,51 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+
+    <h3>İletişim</h3>
+    <hr>
+
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-6 ui form">
+            <div class="field">
+                <label>Adres: </label> {{contact_info.address}}
+                <label>Telefon: </label> {{contact_info.phone}}
+                <label>Fax: </label> {{contact_info.fax}}
+                <label>E-Posta: </label> {{contact_info.email}}
+            </div>
+
+            <h3>Konum</h3>
+        </div>
+        <div class="col-6">
+            <form method="POST" class="ui form">
+                {% csrf_token %}
+                <div class="field">
+                    <label>Ad Soyad</label>
+                    <input type="text" name="full_name" placeholder='Adınızı ve Soyadınızı Girin' />
+                </div>
+                <div class="field">
+                    <label>E-Posta</label>
+                    <input type="email" name="email" placeholder='E-Posta Adresinizi Girin' />
+                </div>
+                <div class="field">
+                    <label>Konu</label>
+                    <input type="text" name="topic" placeholder='Mesajınızın Konu Başlığını Girin' />
+                </div>
+                <div class="field">
+                    <label>Mesaj</label>
+                    <textarea name="message"></textarea>
+                </div>
+                <input type="submit" class="ui button green" value="Gönder" />
+            </form>
+        </div>
+        
+    </div>
+    
+{% endblock %}
+
+{% block lastarticles %}
+
+{% endblock %}

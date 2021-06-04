@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    <h3>Toplantı Listesi Ekle</h3>
+    <hr>
+{% endblock %}
+
+{% block content %}
+<form method="POST" class="ui form" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label>Başlık</label> 
+        <input type="text" name="title" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Açıklama</label> 
+        <textarea name="description" class="form-control">
+
+        </textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Dosya</label> 
+        <input type="file" name="file" class="form-control-file" />
+    </div>
+
+    <div class="form-group">
+        <label>URL</label> 
+        <input type="text" name="url" class="form-control" placeholder="Google Docs URL"/>
+    </div>
+
+    <div class="form-group">
+        <label>Tarih</label> 
+        <input type="date" name="date" class="form-control" />
+    </div>
+    
+    <input type="submit" class="ui button green" value="Ekle" />
+</form>
+{% endblock %}
+
+{% block lastarticles %}
+
+{% endblock %}

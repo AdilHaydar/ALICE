@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+
+
+
+{% block title %}
+    <h3>Araştırmalar</h3> {% if request.user.is_staff or request.user.is_superuser %} <a href="{% url 'research:create' %}" class="ui button green">Araştırma Ekle</a> {% endif %}
+    <hr>
+{% endblock title %}
+    
+
+
+{% block content %}
+    {% for item in categories %}
+
+    {% if item.researchs.get_three_items|length == 0 %}
+
+
+    {% else %}
+
+    <div align="center">
+        <div class="col-6">
+            <h3 class="mt-4" style="border-radius:10px; background-color: black;color:white;">{{item.category_name|upper}}</h3>
+            <br>
+        </div>
+        
+    
+        <div class="row">
+            {% for research in item.researchs.get_three_items %}
+            <div class="col-4">
+                <h4><a href="{% url 'research:show' research.slug %}">{{research.title}}</a></h4>
+                <img src="{{research.image.url}}" class="ui medium rounded image" />
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+{% endblock content %}
+    
