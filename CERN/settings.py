@@ -26,7 +26,7 @@ SECRET_KEY = '83ggbd#=c+m56_3p=+@m&mu-xrwm28&l^6@jvz+@z&)7k!ya)^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://alice-cern.herokuapp.com/']
+ALLOWED_HOSTS = ['alice-cern.herokuapp.com']
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
