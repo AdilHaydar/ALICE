@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 import django_heroku
+import cloudinary
+import cloudinary_storage
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -49,6 +51,8 @@ INSTALLED_APPS = [
     'main',
     'phonenumber_field',
     'researchs',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -157,5 +161,13 @@ CKEDITOR_CONFIGS = {
     }
 }
 
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dqs9egjsd',
+    'API_KEY': '633788992837963',
+    'API_SECRET': 'GTKnrSmN--f7U0GqvvNfNfFhwJY',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 django_heroku.settings(locals())
