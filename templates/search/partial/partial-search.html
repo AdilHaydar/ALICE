@@ -1,0 +1,16 @@
+{% load search_filter %}
+{% for item in results %}
+    <div class="card mb-5 mt-4">
+        <div class="card-header">
+            
+            <h4 class="card-title">
+                <label class="wrapper">{{item|get_class}} |</label> <a href="{{item.get_absolute_url}}">{{item.title}}</a></h4>
+            
+        </div>
+    </div>
+    <style>
+        .wrapper{
+            min-width: 200px;
+        }
+    </style>
+{% endfor %}

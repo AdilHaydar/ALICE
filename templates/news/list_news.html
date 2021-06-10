@@ -1,0 +1,43 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+
+
+{% block title %}
+    <h3>{% translate 'Haberler' %}</h3>
+    <hr>
+    
+{% endblock title %}
+    
+
+{% block content %}
+    <div class="news-list">
+        <div class="ui items">
+            {% for item in news %}
+                <div class="item" style="border:1px solid lightgray;padding:5px;border-radius:10px;">
+                    <div class="image" style="align-self:center;">
+                    <img src="{{item.get_image}}">
+                    </div>
+                    <div class="content">
+                    <a href="{% url 'news:news-detail' item.slug %}" class="header">{{item.title}}</a>
+                    <div class="meta">
+                        <span>{{item.created_at}}</span>
+                    </div>
+                    <div class="description">
+                        <p>{{item.content|safe|truncatewords:50}}</p>
+                    </div>
+                    <!-- <div class="extra">
+                        Additional Details
+                    </div> -->
+                    </div>
+                </div>
+            {% endfor %}
+            
+        </div>
+        
+    </div>
+
+    
+{% endblock content %}
+
+{% block lastarticles %}{% endblock %}
+    

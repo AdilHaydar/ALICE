@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'researchs',
     'cloudinary',
     'cloudinary_storage',
+    'gallery',
+    'news',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +86,7 @@ TEMPLATES = [
 
             'libraries':{
                 'converter' : 'shifts.templatetags.converter',
+                'search_filter' : 'search.templatetags.get_class'
             }
         },
     },
@@ -162,12 +165,15 @@ CKEDITOR_CONFIGS = {
 }
 
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dqs9egjsd',
-    'API_KEY': '633788992837963',
-    'API_SECRET': 'GTKnrSmN--f7U0GqvvNfNfFhwJY',
-}
+if DEBUG == False:
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': 'dqs9egjsd',
+        'API_KEY': '633788992837963',
+        'API_SECRET': 'GTKnrSmN--f7U0GqvvNfNfFhwJY',
+    }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+#https://dev.to/developerroad/django-tutorial-set-up-media-files-in-deployment-for-free-41hn
 
 django_heroku.settings(locals())

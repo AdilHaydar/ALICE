@@ -16,7 +16,7 @@ def add_announcement(request):
         date = list(map(int,request.POST.get('date').split('-')))
         time = list(map(int,request.POST.get('time').split(':')))
 
-        deadline_at = datetime(date[0],date[1],date[2],time[0],time[1], tzinf=pytz.UTC)
+        deadline_at = datetime(date[0],date[1],date[2],time[0],time[1], tzinfo=pytz.UTC)
 
         Announcement.objects.create(user=request.user,title=request.POST.get('title'),announcement=request.POST.get('announcement'),deadline_at=deadline_at)
 

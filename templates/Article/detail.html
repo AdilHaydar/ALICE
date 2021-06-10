@@ -11,7 +11,9 @@
     <div class="article-content mb-5">
     <p>{{article.content|safe}}</p>
 
+    {% if article.file %}
     <embed src="{{article.file.url}}#toolbar=1&navpages=0&scrollbar=0&statusbar=0&view=Fit" type="application/pdf" width="100%" height="600px" />
+    {% endif %}
     </div>
     <hr style="background:lightgray;">
 {% endblock %}

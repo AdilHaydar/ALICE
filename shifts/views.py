@@ -1,6 +1,6 @@
 from main.decorators import authorized_user
 from django.shortcuts import render, redirect
-from .models import Shift
+from .models import Shift, ShiftProfile
 from .forms import ShiftForm
 from main.decorators import authorized_user
 # Create your views here.
@@ -20,3 +20,8 @@ def add(request):
         return redirect('shift:index')
     
     return render(request, 'shifts/add.html', {'form':form})
+
+def show_profile(request, slug):
+    acc = ShiftProfile.objects.get(slug=slug)
+
+    return render(request, 'shifts/profile.html', {'acc':acc})

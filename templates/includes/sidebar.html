@@ -11,14 +11,17 @@
       <!-- sidebar-header  -->
       <div class="sidebar-search">
         <div>
-          <div class="input-group">
-            <input type="text" class="form-control search-menu" placeholder="Search...">
-            <div class="input-group-append">
-              <span class="input-group-text">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </span>
+          <form action="{% url 'search:search' %}" method="GET">
+            <div class="input-group">
+              <input type="text" class="form-control search-menu" placeholder="Search..." name="q">
+              <div class="input-group-append">
+                <button class="input-group-text search-btn">
+                  <i type="submit" class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </div>
             </div>
-          </div>
+          </form>
+          
         </div>
       </div>
       <!-- sidebar-search  -->
@@ -100,6 +103,18 @@
             <a href="{% url 'research:list' %}" {% if nbar == 'research-list'%}class="on-active"{% endif %}>
               <i class="fa fa-book"></i>
               <span>{% translate 'Araştırma Listesi' %}</span>
+            </a>
+          </li>
+          <li class="header-menu">
+            <span>Araştırma Ekibi</span>
+          </li>
+          <li class="header-menu">
+            <span>Galeri</span>
+          </li>
+          <li>
+            <a href="{% url 'gallery:index' %}" {% if nbar == 'research-list'%}class="on-active"{% endif %}>
+              <i class="fa fa-book"></i>
+              <span>{% translate 'Galeri' %}</span>
             </a>
           </li>
           <li class="header-menu">

@@ -95,7 +95,6 @@ def calendar(request):
     is_admin = json.dumps(request.user.is_staff)
 
     
-    
     return render(request, 'main/calendar.html',{'data':data,'is_admin':is_admin})
 
 @authorized_user

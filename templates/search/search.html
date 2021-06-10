@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+
+{% block title %}
+    <h2>{% translate 'Arama' %}</h2>
+    <hr>
+{% endblock %}
+
+
+{% block content %}
+<div id="pagination-div">
+    {% include 'search/partial/partial-search.html' %}
+</div>
+
+{% endblock %}

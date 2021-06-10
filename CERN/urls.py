@@ -29,6 +29,9 @@ urlpatterns = [
     path('shift/',include(('shifts.urls','shifts'), namespace='shift')),
     path('main/',include(('main.urls','main'), namespace='main')),
     path('research/',include(('researchs.urls','researchs'), namespace='research')),
+    path('search/', include(('search.urls','search'), namespace='search')),
+    path('gallery/', include(('gallery.urls','gallery'), namespace='gallery')),
+    path('news/', include(('news.urls','news'), namespace='news')),
 ]
 urlpatterns += static(settings.STATIC_URL,document_root=settings.STATICFILES_DIRS)
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

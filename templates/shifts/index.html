@@ -29,7 +29,11 @@
                         <img style="height: 200px;width:150px;" src="{{shift.photo.url}}">
                     </div>
                     <div class="content">
-                        <div class="header">{{shift.academic_titles|titleConverter }} {{shift.first_name}} {{shift.last_name}}</div>
+                        <div class="header">
+                            <a href="{% url 'shift:show-profile' shift.shiftprofile.slug %}">
+                                {{shift.academic_titles|titleConverter }} {{shift.first_name}} {{shift.last_name}}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -42,7 +46,11 @@
                         <img style="height: 200px;width:150px;" src="{{shift.photo.url}}">
                     </div>
                     <div class="content">
-                        <div class="header">{{shift.academic_titles|titleConverter }} {{shift.first_name}} {{shift.last_name}}</div>
+                        <div class="header">
+                            <a href="{% url 'shift:show-profile' shift.shiftprofile.slug %}">
+                                {{shift.academic_titles|titleConverter }} {{shift.first_name}} {{shift.last_name}}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -65,7 +73,11 @@
                     <img style="height: 200px;width:150px;" src="{{shift.photo.url}}">
                 </div>
                 <div class="content">
-                    <div class="header">{{shift.academic_titles|titleConverter }} {{shift.first_name}} {{shift.last_name}}</div>
+                    <div class="header">
+                        <a href="{% url 'shift:show-profile' shift.shiftprofile.slug %}">
+                            {{shift.academic_titles|titleConverter }} {{shift.first_name}} {{shift.last_name}}
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

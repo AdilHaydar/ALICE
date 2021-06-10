@@ -83,7 +83,7 @@
         {% for article in last_three_articles %}
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
           <div class="card rounded-0 p-0 shadow-sm">
-            <img src="{% static 'images/article_2.png'%}" class="card-img-top rounded-0" alt="Article Image">
+            <img src="{{article.get_image_or_default}}" class="card-img-top rounded-0" alt="Article Image">
             <div class="card-body text-center">
               <h6 class="card-title" style="color:black;">{{article.title}}</h6>
               <a href="{% url 'article:show-pdf' article.slug %}" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-download"></i> {% translate 'İndir' %}</a>

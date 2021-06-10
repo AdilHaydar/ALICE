@@ -1,6 +1,7 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.utils.text import slugify
+from django.urls import reverse
 
 class CategoryResearch(models.Model):
     category_name = models.CharField(max_length=50)
@@ -28,6 +29,10 @@ class Research(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("research:show", kwargs={"slug": self.slug})
+    
 
     def unique_slug(self,new_slug,orjinal_slug,index):
         if Research.objects.filter(slug=new_slug):
