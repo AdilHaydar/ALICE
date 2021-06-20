@@ -1,0 +1,59 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    <div class="row" style="align-items: baseline; width:100%;">
+        <div class="">
+            <h3>Projeler</h3>
+        </div>
+    </div>
+    
+    <hr>
+{% endblock %}
+
+{% block content %}
+{% for item in projects %}
+    <div class="ui card" style="width:100%;">
+        <div class="content">
+        <div class="header">{{item.title}}</div>
+        </div>
+        <div class="content">
+        <h4 class="ui sub header">{{item.created_at}}</h4>
+        <div class="ui small feed">
+            <div class="event">
+            <div class="content">
+                <div class="summary">
+                {{item.content|safe|truncatewords:30}}
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="extra content" align="center">
+        <a href="{{item.get_absolute_url}}" class="ui inverted blue button">Görüntüle</a>
+        </div>
+  </div>
+{% endfor %}
+
+{% if projects.has_other_pages %}
+  <ul class="pagination">
+    {% if projects.has_previous %}
+      <li><a href="?page={{ projects.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in projects.paginator.page_range %}
+      {% if projects.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if projects.has_next %}
+      <li><a href="?page={{ projects.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+{% endblock %}

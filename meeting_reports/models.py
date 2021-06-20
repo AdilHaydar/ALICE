@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse
 # Create your models here.
 
 class MeetingReportCategory(models.Model):
@@ -24,6 +24,9 @@ class MeetingReport(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse("meeting-reports:detail", kwargs={"id": self.id})
+
 
 class Meeting(models.Model):
     user = models.ForeignKey('auth.User', on_delete = models.CASCADE, related_name='meetings')
@@ -36,5 +39,7 @@ class Meeting(models.Model):
     
     def __str__(self):
         return self.title
+
+    
 
 

@@ -1,0 +1,81 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    <h2>Gallery</h2>
+    <hr style="background-color:lightgray;">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  {% for item in headers %}
+
+<div class="gallery" style="width:250px;padding:10px">
+  {% for image in item.galleries.all %}
+  <a href="{{image.image.url}}" data-fancybox="{{item.name}}" style="width: 250px !important;">
+      <div class="gallery-box" style="{% if forloop.counter != 1 %}display:none;{% endif %}">
+          <img  class="main-pics" src="{{image.image.url}}" />
+          <div class="overlay">
+              <div class="text">{{item.name}}</div>
+          </div>
+      </div>
+      
+  </a>
+  {% endfor %}
+</div>
+{% endfor %}
+
+</div>
+
+
+
+
+<style>
+.gallery-box {
+    position: relative;
+    width: 250px !important;
+  }
+  
+  .main-pics {
+    display: inline-flex;
+    width: 250px;
+    height: 300px;
+    
+    padding:10px;
+    
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 300px;
+    width: 250px;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: #212425;
+  }
+  
+  .gallery-box:hover .overlay {
+    opacity: 0.7;
+  }
+  
+  .text {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+</style>
+{% endblock %}
+
+
+
+{% block lastarticles %}{% endblock %}
+

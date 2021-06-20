@@ -13,12 +13,4 @@
     {% include 'meeting/partial/partial-list.html' %}
 </div>
 
-<div class="form-group" align="center">
-    <form method="GET" limit='{{num_pages}}' id="load_form">
-        <input type="hidden" name="page" value="2" id="pagination">
-        {% if num_pages != 1 %}
-        <input type="submit" id="submit_button" value="{% translate 'Daha Fazla Yükle' %}">
-        {% endif %}
-    </form>
-</div>
 {% endblock %}

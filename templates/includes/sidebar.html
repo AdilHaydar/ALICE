@@ -2,7 +2,7 @@
 <nav id="sidebar" class="sidebar-wrapper">
     <div class="sidebar-content">
       <div class="sidebar-brand">
-        <a href="/">CERN-ALICE IU GRUBU</a>
+        <a href="/">ALICE IU GRUBU WEB SAYFASI</a>
         <div id="close-sidebar">
           <i class="fas fa-times"></i>
         </div>
@@ -11,14 +11,17 @@
       <!-- sidebar-header  -->
       <div class="sidebar-search">
         <div>
-          <div class="input-group">
-            <input type="text" class="form-control search-menu" placeholder="Search...">
-            <div class="input-group-append">
-              <span class="input-group-text">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </span>
+          <form action="{% url 'search:search' %}" method="GET">
+            <div class="input-group">
+              <input type="text" class="form-control search-menu" placeholder="Search..." name="q">
+              <div class="input-group-append">
+                <button class="input-group-text search-btn">
+                  <i type="submit" class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </div>
             </div>
-          </div>
+          </form>
+          
         </div>
       </div>
       <!-- sidebar-search  -->
@@ -29,7 +32,7 @@
           </li>
           <li>
             <a href="/" {% if nbar == 'main-page' %}class="on-active"{% endif %}>
-              <i class="fa fa-book"></i>
+              <i class="fas fa-home"></i>
               <span>{% translate 'Ana Sayfa' %}</span>
             </a>
           </li>
@@ -41,17 +44,19 @@
           </li>
           <li class="sidebar-dropdown {% if nbar == 'add-article' or nbar == 'list-articles' %}active on-show{% endif %}">
             <a href="javascript:void(0)">
-              <i class="far fa-newspaper"></i>
+              <i class="fas fa-scroll"></i>
               <span>{% translate 'Makaleler' %}</span>
               <span class="badge badge-pill badge-danger">3</span>
             </a>
             <div class="sidebar-submenu {% if nbar == 'add-article' %}active on-show{% endif %}">
               <ul>
+                {% if request.user.is_staff or request.user.is_superuser %}
                 <li>
                   <a href="{% url 'article:add' %}" {% if nbar == 'add-article' %}class="on-page"{% endif %}>{% translate 'Makale Oluştur' %}
 
                   </a>
                 </li>
+                {% endif %}
                 <li>
                   <a href="{% url 'article:list' %}" {% if nbar == 'list-articles' %}class="on-page"{% endif %}>{% translate 'Makaleleri Listele' %}</a>
                 </li>
@@ -65,35 +70,107 @@
           </li>
           <li>
             <a href="{% url 'meeting-reports:index' %}" {% if nbar == 'list-reports'%}class="on-active"{% endif %}>
-              <i class="fa fa-book"></i>
+              <i class="fas fa-file-alt"></i>
               <span>{% translate 'Toplantı Raporları' %}</span>
             </a>
           </li>
+          {% if request.user.is_staff or request.user.is_superuser %}
           <li>
             <a href="{% url 'meeting-reports:add' %}" {% if nbar == 'add-report'%}class="on-active"{% endif %}>
-              <i class="fa fa-book"></i>
+              <i class="fas fa-plus"></i>
               <span>{% translate 'Toplantı Raporu Oluştur' %}</span>
             </a>
           </li>
+          {% endif %}
           <li>
             <a href="{% url 'meeting-reports:meeting-list' %}" {% if nbar == 'add-category'%}class="on-active"{% endif %}>
-              <i class="fa fa-book"></i>
-              <span>{% translate 'Toplantı Takip' %}</span>
+              <i class="fas fa-table"></i>
+              <span>{% translate 'Görev - Hedef Tablosu' %}</span>
             </a>
           </li>
+          {% if request.user.is_staff or request.user.is_superuser %}
           <li>
             <a href="{% url 'meeting-reports:add-category' %}" {% if nbar == 'add-category'%}class="on-active"{% endif %}>
-              <i class="fa fa-book"></i>
+              <i class="fas fa-plus"></i>
               <span>{% translate 'Kategori Ekle' %}</span>
             </a>
           </li>
+          {% endif %}
+          <li class="header-menu">
+            <span>Araştırmalar</span>
+          </li>
+          <li>
+            <a href="{% url 'research:list' %}" {% if nbar == 'research-list'%}class="on-active"{% endif %}>
+              <i class="fas fa-atom"></i>
+              <span>{% translate 'Araştırma Listesi' %}</span>
+            </a>
+          </li>
+          
+          <li class="header-menu">
+            <span>Galeri</span>
+          </li>
+          <li>
+            <a href="{% url 'gallery:index' %}" {% if nbar == 'research-list'%}class="on-active"{% endif %}>
+              <i class="fas fa-photo-video"></i>
+              <span>{% translate 'Galeri' %}</span>
+            </a>
+          </li>
+
+          <li class="header-menu">
+            <span>Projeler</span>
+          </li>
+          <li>
+            <a href="{% url 'projects:index' %}" {% if nbar == 'project-list'%}class="on-active"{% endif %}>
+              <i class="fas fa-flask"></i>
+              <span>{% translate 'Projeler' %}</span>
+            </a>
+          </li>
+
+          <li class="header-menu">
+            <span>Dökümanlar</span>
+          </li>
+          <li>
+            <a href="{% url 'documents:index' %}" {% if nbar == 'document-list'%}class="on-active"{% endif %}>
+              <i class="fas fa-file-word"></i>
+              <span>{% translate 'Dökümanlar' %}</span>
+            </a>
+          </li>
+
           <li class="header-menu">
             <span>Araştırma Ekibi</span>
           </li>
           <li>
             <a href="{% url 'shift:index' %}" {% if nbar == 'shift-list'%}class="on-active"{% endif %}>
-              <i class="fa fa-book"></i>
+              <i class="fas fa-users"></i>
               <span>{% translate 'Araştırma Ekibi' %}</span>
+            </a>
+          </li>
+          <li class="header-menu">
+            <span>İletişim</span>
+          </li>
+          <li>
+            <a href="{% url 'main:contact' %}" {% if nbar == 'contact'%}class="on-active"{% endif %}>
+              <i class="fas fa-location-arrow"></i>
+              <span>{% translate 'İletişim' %}</span>
+            </a>
+          </li>
+          <li class="header-menu">
+            <span>Takvim</span>
+          </li>
+          <li>
+            <a href="{% url 'main:calendar' %}" class="fancy-calendar">
+              <i class="fas fa-calendar-alt"></i>
+              <span>{% translate 'Takvim' %}</span>
+            </a>
+          </li>
+
+          <li class="header-menu">
+            <span>SSS</span>
+          </li>
+          <li>
+            <a href="{% url 'sss:index' %}" {% if nbar == 'sss'%}class="on-active"{% endif %}>
+              <i class="fas fa-question"></i>
+              <span>{% translate 'Sıkça Sorulan Sorular' %}</span>
             </a>
           </li>
         </ul>
@@ -101,21 +178,29 @@
       <!-- sidebar-menu  -->
     </div>
     <!-- sidebar-content  -->
+    
     <div class="sidebar-footer">
+      
       <a href="#">
-        <i class="fa fa-bell"></i>
-        <span class="badge badge-pill badge-warning notification">3</span>
+        <a href="https://www.istanbul.edu.tr/tr">
+			<img src="\static\images\socialmedia\istanbul.png" width="28px" height="28px"/>
+        
       </a>
-      <a href="#">
-        <i class="fa fa-envelope"></i>
-        <span class="badge badge-pill badge-success notification">7</span>
+      <a href="https://home.cern/">
+        <img src="\static\images\socialmedia\cern2.png" width="32px" height="32px"/>
       </a>
-      <a href="#">
-        <i class="fa fa-cog"></i>
-        <span class="badge-sonar"></span>
+      <a href="https://alice-collaboration.web.cern.ch/">
+        <img src="\static\images\socialmedia\alicelogo.png" width="26px" height="34px"/>
       </a>
-      <a href="#">
+      
+      <a href="
+      {% if request.user.is_authenticated %}
+      {% url 'user:logout' %}
+      {% else %}
+      {% url 'user:login' %}
+      {% endif %}">
         <i class="fa fa-power-off"></i>
       </a>
+      
     </div>
   </nav>

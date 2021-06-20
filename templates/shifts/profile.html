@@ -1,0 +1,13 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    <h3>{{acc.shift.first_name}} {{acc.shift.last_name}}</h3>
+    <hr>
+{% endblock %}
+
+
+{% block content %}
+    <div align="center"><img src="{{acc.shift.photo.url}}" class="ui medium rounded image"></div>
+    <hr>
+    {{acc.about|safe}}
+{% endblock %}

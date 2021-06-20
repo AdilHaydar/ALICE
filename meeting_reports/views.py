@@ -1,23 +1,28 @@
+from django.core import paginator
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.http import JsonResponse
 from .models import MeetingReport, MeetingReportCategory, Meeting
 from .forms import MeetingReportForm, MeetingForm
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.template.loader import render_to_string
+from django.core.paginator import  Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 def index(request):
     reports = MeetingReport.objects.all()
 
-    #page = request.GET.get('page',1)
-    p = Paginator(reports,5)
-    reports = p.page(1)
+    page = request.GET.get('page',1)
 
+    paginator = Paginator(reports,1)
+
+    try:
+        reports = paginator.page(page)
+    except PageNotAnInteger:
+        reports = paginator.page(1)
+    except EmptyPage:
+        reports = paginator.page(paginator.num_pages)
     context = {
         'reports':reports,
         'nbar' : 'list-reports',
-        'num_pages':p.num_pages,
     }
 
     return render(request, 'meeting/meeting_reports.html', context)
@@ -95,6 +100,18 @@ def update_category(request, pk):
 
 def meeting_list(request):
     meeting_lists = Meeting.objects.all()
+
+    page = request.GET.get('page',1)
+
+    paginator = Paginator(meeting_lists, 10)
+
+    try:
+        meeting_lists = paginator.page(page)
+    except PageNotAnInteger:
+        meeting_lists = paginator.page(1)
+    except EmptyPage:
+        meeting_lists = paginator.page(paginator.num_pages)
+
     context = {
         'meeting_lists' : meeting_lists,
     }

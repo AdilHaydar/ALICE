@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    <h2>{{project.title}}</h2>
+    <hr style="background-color:lightgray;">
+{% endblock %}
+
+{% block content %}
+    <div class="article-content mb-5">
+    <p>{{project.content|safe}}</p>
+    
+    {% if project.file %}
+    <div align="center">
+        <a class="ui button massive gallerypdf" data-fancybox-type="iframe" href="{{project.get_file_or_none|default_if_none:'#'}}">Görüntüle</a>
+    </div>
+    {% endif %}
+    </div>
+    <hr style="background:lightgray;">
+
+    
+
+   
+    
+{% endblock %}
+

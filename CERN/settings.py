@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
+import cloudinary
+import cloudinary_storage
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +29,7 @@ SECRET_KEY = '83ggbd#=c+m56_3p=+@m&mu-xrwm28&l^6@jvz+@z&)7k!ya)^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['alice-cern.herokuapp.com']
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
@@ -45,9 +48,25 @@ INSTALLED_APPS = [
     'announcement',
     'meeting_reports',
     'shifts',
+    'main',
+    'phonenumber_field',
+    'researchs',
+    'cloudinary',
+    'cloudinary_storage',
+    'gallery',
+    'news',
+    'sss',
+    'mptt',
+    'django_mptt_admin',
+    'projects',
+    'documents',
 ]
 
+if DEBUG == True:
+    INSTALLED_APPS.append('django_extensions')
+
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -75,6 +94,7 @@ TEMPLATES = [
 
             'libraries':{
                 'converter' : 'shifts.templatetags.converter',
+                'search_filter' : 'search.templatetags.get_class'
             }
         },
     },
@@ -131,10 +151,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STATIC_ROOT =  BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
+
+
+STATICFILES_DIRS = (
+BASE_DIR / 'static',
+)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
@@ -146,3 +171,17 @@ CKEDITOR_CONFIGS = {
         "width" : "100%",
     }
 }
+
+
+if DEBUG == False:
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': 'dqs9egjsd',
+        'API_KEY': '633788992837963',
+        'API_SECRET': 'GTKnrSmN--f7U0GqvvNfNfFhwJY',
+    }
+
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+#https://dev.to/developerroad/django-tutorial-set-up-media-files-in-deployment-for-free-41hn
+
+django_heroku.settings(locals())

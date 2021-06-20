@@ -1,0 +1,32 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    <div class="row" style="align-items: baseline; width:100%;">
+        <div class="">
+            <h3>Sıkça Sorulan Sorular</h3>
+        </div>
+    </div>
+    
+    <hr>
+{% endblock %}
+
+{% block content %}
+<script>
+        $( function() {
+          $( "#accordion" ).accordion();
+        } );
+</script>
+<div id="accordion">
+    {% for item in sss %}
+        <h3>{{item.title}}</h3>
+        <div>
+        <p>
+        {{item.question|safe}}
+        </p>
+        </div>
+    {% endfor %}
+    
+  </div>
+
+
+{% endblock %}

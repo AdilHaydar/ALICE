@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from articles import views
+from main import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,7 +26,15 @@ urlpatterns = [
     path('article/',include(('articles.urls','articles'), namespace='article')),
     path('announcement/',include(('announcement.urls','announcement'),namespace='announcement')),
     path('meeting/',include(('meeting_reports.urls','meeting_reports'), namespace='meeting-reports')),
-    path('shift/',include(('shifts.urls','shifts'), namespace='shift'))
+    path('shift/',include(('shifts.urls','shifts'), namespace='shift')),
+    path('main/',include(('main.urls','main'), namespace='main')),
+    path('research/',include(('researchs.urls','researchs'), namespace='research')),
+    path('search/', include(('search.urls','search'), namespace='search')),
+    path('gallery/', include(('gallery.urls','gallery'), namespace='gallery')),
+    path('news/', include(('news.urls','news'), namespace='news')),
+    path('projects/', include(('projects.urls','projects'), namespace='projects')),
+    path('documents/', include(('documents.urls','documents'), namespace='documents')),
+    path('sss/', include(('sss.urls','sss'), namespace='sss'))
 ]
 urlpatterns += static(settings.STATIC_URL,document_root=settings.STATICFILES_DIRS)
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

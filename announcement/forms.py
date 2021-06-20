@@ -4,9 +4,10 @@ from django import forms
 class AnnouncementForm(forms.ModelForm):
     class Meta:
         model = Announcement
-        fields = ['title','announcement','deadline_at']
+        fields = ['title','announcement',]
 
-    deadline_at = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type':'datetime-local'}))
+    date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type':'date'}))
+    time = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type':'time'}))
 
     def __init__(self, *args, **kwargs):
         super(AnnouncementForm, self).__init__(*args, **kwargs)

@@ -11,9 +11,10 @@
 
 
 {% block content %}
+{% if request.user.is_staff or request.user.is_superuser %}
 <div class="col-12 mb-5" align="center">
     <button class="btn btn-outline-primary" onclick="show_hide_ann(this)">{% translate 'Duyuru Yayınla' %}</button>
-    <div id="up-down-element" class="mt-3 add-announcement col-6 card card-bg" align="center" style="padding:10px;display:none">
+    <div id="up-down-element" class="mt-3 add-announcement col-12 card card-bg" align="center" style="padding:10px;display:none">
         <div class="card-header">
             <h5>{% translate 'Duyuru Yayınla' %}</h5>
         </div>
@@ -26,6 +27,7 @@
         </form>
     </div>
 </div>
+{% endif %}
 {% for announcement in announcements %}
 <div class="card card-bg mb-5 mt-4">
     <div class="card-body">
@@ -34,6 +36,28 @@
     </div>
 </div>
 {% endfor %}
+
+{% if announcements.has_other_pages %}
+  <ul class="pagination">
+    {% if announcements.has_previous %}
+      <li><a href="?page={{ announcements.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in announcements.paginator.page_range %}
+      {% if announcements.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if announcements.has_next %}
+      <li><a href="?page={{ useannouncementsrs.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
 
 <script>
     function show_hide_ann(param)

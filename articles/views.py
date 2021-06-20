@@ -10,11 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.loader import render_to_string
 # Create your views here.
 
-def index(request):
-    context = {
-        'nbar' : 'main-page'
-    }
-    return render(request,'base/base.html',context)
+
 
 def list_articles(request):
     articles = Article.objects.all()

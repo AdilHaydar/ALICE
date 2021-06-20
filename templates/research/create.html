@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+
+
+{% block title %}
+    <h3>Araştırma Ekle</h3>
+    <hr>
+{% endblock title %}
+
+
+{% block content %}
+    <form class="ui form" method="POST" enctype="multipart/form-data">
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            {{form.errors}}
+        </div>
+        {% endif %}
+        {% csrf_token %}
+        {{form.media}}
+        {% for field in form %}
+        <div class="field">
+            <label>{{field.label}}</label>
+            {{field}}
+        </div>
+        {% endfor %}
+        <a href="{% url 'research:create-category' %}" class="fancy-add-category">Kategori Ekle</a>
+        <input type="submit" value="Oluştur" class="ui button green" />
+    </form>
+
+    
+{% endblock content %}
+    
